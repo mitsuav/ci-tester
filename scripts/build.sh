@@ -1,28 +1,23 @@
 #!/bin/bash
-
-# Source Configs
-source $CONFIG
-
-# Change to the Source Directry
 cd ~
-
-# Set-up ccache
-if [ -z "$CCACHE_SIZE" ]; then
-    ccache -M 10G
-else
-    ccache -M ${CCACHE_SIZE}
-fi
-
-echo " "
-. build/envsetup.sh
 export ALLOW_MISSING_DEPENDENCIES=true
-export BUILD_USERNAME=ozipoetra
-export BUILD_HOSTNAME=ozip.my.id
-export TZ=Asia/Jakarta #put before last build command
-lunch lineage_merlinx-user
-mka sepolicy
-mka bootimage
-mka init
+export BUILD_BROKEN_MISSING_REQUIRED_MODULES=true
+. build/envsetup.sh
+export TZ=Asia/Jakarta
+lunch evolution_merlinx-user
+make evolution
+make evolution
+# make bootimage
+# make init
 
+echo ""
+echo "ls current dir:"
+ls -al
+echo ""
+echo "ls out dir:"
+ls out/target/product/merlinx/
+echo ""
+echo "clang check: "
+ls /root/prebuilts/clang/host/linux-x86/
 # Exit
 exit 0

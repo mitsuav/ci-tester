@@ -1,11 +1,10 @@
 #!/bin/bash
 
-# Source Vars
-source $CONFIG
-
-# A Function to Send Posts to Telegram
-
-echo "Note: Upload is disabled"
+cd ~
+echo "Uploading File"
+#curl -F file=@out/target/product/merlinx/*.zip https://store1.gofile.io/uploadFile
+curl bashupload.com -T out/target/product/merlinx/*.zip
+#curl -T out/target/product/merlinx/boot.img temp.sh
 
 # Exit
 exit 0
