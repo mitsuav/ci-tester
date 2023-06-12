@@ -1,0 +1,29 @@
+env: 
+ 
+    CONFIG: config.sh
+
+    # Telegram 
+    TG_CHAT_ID: 965784022
+    TG_TOKEN: xxx
+
+    # Cirrus Specific Vars (Do *NOT* Change)
+    CIRRUS_SHELL: bash
+
+task:
+  timeout_in: 120m 
+  name: "Builder"
+  container:
+      image: ghcr.io/sushrut1101/docker:arch
+      cpu: 8
+      memory: 32G
+  Checks_script:
+      - curl -sL https://raw.githubusercontent.com/mitsu00/ci-tester/main/scripts/checks.sh | bash
+  Sync_script:
+      - curl -sL https://raw.githubusercontent.com/mitsu00/ci-tester/main/scripts/sync.sh | bash
+
+  Build_script:
+      - curl -sL https://raw.githubusercontent.com/mitsu00/ci-tester/main/scripts/build.sh | bash
+
+  Upload_script:
+      - export TIMEOUT=43200 # Link timeout (in minutes)
+      - curl https://raw.githubusercontent.com/mitsu00/ci-tester/main/scripts/upload.sh | bash

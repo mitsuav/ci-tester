@@ -1,0 +1,14 @@
+image: ghcr.io/sushrut1101/docker:arch
+
+variables:
+  TWRP_SYNC: "https://gitlab.com/OrangeFox/sync.git"
+  CONFIG: "config.sh"
+
+OrangeFox-CI:
+  stage: build
+  script:
+    - source config.sh
+    - curl -sL https://raw.githubusercontent.com/Arafattex/OrangeFox-CI/los/scripts/checks.sh | bash
+    - curl -sL https://raw.githubusercontent.com/Arafattex/OrangeFox-CI/los/scripts/sync.sh | bash
+    - curl -sL https://raw.githubusercontent.com/Arafattex/OrangeFox-CI/los/scripts/build.sh | bash
+    - curl -sL https://raw.githubusercontent.com/Arafattex/OrangeFox-CI/los/scripts/upload.sh | bash
